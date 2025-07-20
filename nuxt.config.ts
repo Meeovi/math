@@ -27,9 +27,6 @@ export default defineNuxtConfig({
           href: '/icons/apple-touch-icon-180x180.png'
         },
       ],
-      script: [{
-        //src: 'https://static.elfsight.com/platform/platform.js'
-      }]
     },
   },
 
@@ -98,4 +95,8 @@ export default defineNuxtConfig({
       gtagId: process.env.NUXT_PUBLIC_GTAG_ID,
     },
   },
+
+  vite: {
+    plugins: []
+  }
 })
