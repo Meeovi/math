@@ -1,5 +1,4 @@
 import { createDirectus, rest, readItem, readItems, createItem, deleteItem, uploadFiles, readSingleton } from '@directus/sdk';
-import "dotenv"
 
 export default defineNuxtPlugin(() => {
 const config = useRuntimeConfig()
