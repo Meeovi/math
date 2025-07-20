@@ -26,10 +26,39 @@ body {
     width: 40% !important;
 }
 
+.logobrand {
+    position: relative;
+    top: -1px;
+}
+
 .logotext {
     display: inline-block;
     position: relative;
-    top: 5px;
+    top: 3px;
     color: white !important;
     text-decoration: none;
+}
+
+/*********************** Mobile CSS **************/
+
+@media (max-width: 800px) {
+    .darkIcon {
+        position: relative;
+        top: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .ecosystemMenuIcon {
+        display: none;
+    }
+
+    .logobrand {
+        position: relative;
+        left: 10px;
+    }
+
+    .logotext {
+        display: none;
+    }
 }

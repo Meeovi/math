@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
 
         <div class="d-flex align-center flex-column flex-sm-row fill-height">
-          <v-btn icon @click="toggleDark()">
+          <v-btn class="darkIcon" icon @click="toggleDark()">
             <v-icon>{{ isDark ? 'fas fa-moon' : 'fas fa-sun' }}</v-icon>
           </v-btn>
 

@@ -2,7 +2,8 @@
     <div>
         <v-app-bar-title>
             <NuxtLink class="logobrand" href="/">
-                <p class="logotext fas fa-calculator">{{ blocksSiteoverview?.name }}</p>
+                <v-icon start size="small" icon="fa:fas fa-calculator"></v-icon>
+                <p class="logotext">{{ blocksSiteoverview?.name }}</p>
             </NuxtLink>
         </v-app-bar-title>
     </div>
