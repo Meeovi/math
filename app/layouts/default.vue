@@ -225,23 +225,28 @@
   function handleGlobalKeydown(event) {
     // Only handle if our container should have focus and no input is focused
     if (!isContainerFocused.value && !drawer.value) {
-      const activeElement = document.activeElement
-      if (!activeElement || activeElement === document.body || activeElement === calculatorContainer.value) {
-        focusContainer()
-        handleKeydown(event)
+      if (process.client) {
+        const activeElement = document.activeElement
+        if (!activeElement || activeElement === document.body || activeElement === calculatorContainer.value) {
+          focusContainer()
+          handleKeydown(event)
+        }
       }
     }
   }
 
   // Focus the container when the component is mounted
   onMounted(() => {
-    focusContainer()
-    // Add global keyboard listener as backup
-    document.addEventListener('keydown', handleGlobalKeydown)
+    if (process.client) {
+      focusContainer()
+      document.addEventListener('keydown', handleGlobalKeydown)
+    }
   })
 
   onUnmounted(() => {
-    document.removeEventListener('keydown', handleGlobalKeydown)
+    if (process.client) {
+      document.removeEventListener('keydown', handleGlobalKeydown)
+    }
   })
 
   // Refocus when section changes

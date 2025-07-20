@@ -28,35 +28,41 @@ export default {
   },
   methods: {
     loadHistory() {
-      const raw = localStorage.getItem('meeovi-math-history');
-      this.history = raw ? JSON.parse(raw) : [];
+      if (process.client) {
+        const raw = localStorage.getItem('meeovi-math-history');
+        this.history = raw ? JSON.parse(raw) : [];
+      }
     },
     clearHistory() {
-      localStorage.removeItem('meeovi-math-history');
-      this.history = [];
+      if (process.client) {
+        localStorage.removeItem('meeovi-math-history');
+        this.history = [];
+      }
     },
     exportHistory() {
       if (!this.history.length) return;
-      const csvRows = [
-        'Timestamp,Type,Summary'
-      ];
-      this.history.forEach(item => {
-        // Escape quotes and commas
-        const timestamp = '"' + (item.timestamp || '').replace(/"/g, '""') + '"';
-        const type = '"' + (item.type || '').replace(/"/g, '""') + '"';
-        const summary = '"' + (item.summary || '').replace(/"/g, '""') + '"';
-        csvRows.push([timestamp, type, summary].join(','));
-      });
-      const csvContent = csvRows.join('\n');
-      const blob = new Blob([csvContent], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'meeovi-math-history.csv';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      if (process.client) {
+        const csvRows = [
+          'Timestamp,Type,Summary'
+        ];
+        this.history.forEach(item => {
+          // Escape quotes and commas
+          const timestamp = '"' + (item.timestamp || '').replace(/"/g, '""') + '"';
+          const type = '"' + (item.type || '').replace(/"/g, '""') + '"';
+          const summary = '"' + (item.summary || '').replace(/"/g, '""') + '"';
+          csvRows.push([timestamp, type, summary].join(','));
+        });
+        const csvContent = csvRows.join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'meeovi-math-history.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
     },
   }
 }

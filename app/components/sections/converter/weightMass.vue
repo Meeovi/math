@@ -141,17 +141,19 @@ export default {
       this.convert();
     },
     saveToHistory() {
-      const entry = {
-        type: 'Weight/Mass Conversion',
-        summary: `${this.fromValue} ${this.fromUnit} = ${this.toValue} ${this.toUnit}`,
-        timestamp: new Date().toLocaleString()
-      };
-      let history = [];
-      try {
-        history = JSON.parse(localStorage.getItem('meeovi-math-history')) || [];
-      } catch {}
-      history.unshift(entry);
-      localStorage.setItem('meeovi-math-history', JSON.stringify(history.slice(0, 100)));
+      if (process.client) {
+        const entry = {
+          type: 'Weight/Mass Conversion',
+          summary: `${this.fromValue} ${this.fromUnit} = ${this.toValue} ${this.toUnit}`,
+          timestamp: new Date().toLocaleString()
+        };
+        let history = [];
+        try {
+          history = JSON.parse(localStorage.getItem('meeovi-math-history')) || [];
+        } catch {}
+        history.unshift(entry);
+        localStorage.setItem('meeovi-math-history', JSON.stringify(history.slice(0, 100)));
+      }
     }
   }
 }

@@ -174,18 +174,22 @@ export default {
     }
   },
   mounted() {
-    this.canvas = this.$refs.graphCanvas;
-    this.ctx = this.canvas.getContext('2d');
-    
-    // Set canvas size
-    this.resizeCanvas();
-    window.addEventListener('resize', this.resizeCanvas);
-    
-    // Initial draw
-    this.drawGraph();
+    if (process.client) {
+      this.canvas = this.$refs.graphCanvas;
+      this.ctx = this.canvas.getContext('2d');
+      
+      // Set canvas size
+      this.resizeCanvas();
+      window.addEventListener('resize', this.resizeCanvas);
+      
+      // Initial draw
+      this.drawGraph();
+    }
   },
   beforeUnmount() {
-    window.removeEventListener('resize', this.resizeCanvas);
+    if (process.client) {
+      window.removeEventListener('resize', this.resizeCanvas);
+    }
   },
   methods: {
     resizeCanvas() {
@@ -222,20 +226,22 @@ export default {
     },
     
     saveToHistory() {
-      const visibleFuncs = this.functions.filter(f => f.visible && f.expression);
-      if (!visibleFuncs.length) return;
-      const summary = visibleFuncs.map((f, i) => `f${i+1}(x) = ${f.expression} [${f.color}]`).join('; ');
-      const entry = {
-        type: 'Graphing',
-        summary: `${summary} | X: [${this.xMin}, ${this.xMax}] Y: [${this.yMin}, ${this.yMax}]`,
-        timestamp: new Date().toLocaleString()
-      };
-      let history = [];
-      try {
-        history = JSON.parse(localStorage.getItem('meeovi-math-history')) || [];
-      } catch {}
-      history.unshift(entry);
-      localStorage.setItem('meeovi-math-history', JSON.stringify(history.slice(0, 100)));
+      if (process.client) {
+        const visibleFuncs = this.functions.filter(f => f.visible && f.expression);
+        if (!visibleFuncs.length) return;
+        const summary = visibleFuncs.map((f, i) => `f${i+1}(x) = ${f.expression} [${f.color}]`).join('; ');
+        const entry = {
+          type: 'Graphing',
+          summary: `${summary} | X: [${this.xMin}, ${this.xMax}] Y: [${this.yMin}, ${this.yMax}]`,
+          timestamp: new Date().toLocaleString()
+        };
+        let history = [];
+        try {
+          history = JSON.parse(localStorage.getItem('meeovi-math-history')) || [];
+        } catch {}
+        history.unshift(entry);
+        localStorage.setItem('meeovi-math-history', JSON.stringify(history.slice(0, 100)));
+      }
     },
     
     drawGrid() {

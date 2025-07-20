@@ -1,5 +1,5 @@
-
 export default defineNuxtPlugin((nuxtApp) => {
+  if (process.client) {
     const { gtagId } = useRuntimeConfig().public;
     
     function gtag() {
@@ -19,4 +19,5 @@ export default defineNuxtPlugin((nuxtApp) => {
         },
       ],
     });
-  });
+  }
+});
