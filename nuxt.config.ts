@@ -4,6 +4,35 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
+
+  app: {
+    head: {
+      viewport: 'minimum-scale=1, initial-scale=1, width=device-width',
+      templateParams: {
+        separator: '·',
+      },
+      htmlAttrs: {
+        lang: 'en',
+      },
+      meta: [{
+        name: 'description',
+        content: 'Powerful math tools for students and teachers. Convert units, currencies, and more with ease.'
+      }, ],
+      link: [{
+          rel: 'icon',
+          href: '/favicon.ico'
+        },
+        {
+          rel: 'apple-touch-icon',
+          href: '/icons/apple-touch-icon-180x180.png'
+        },
+      ],
+      script: [{
+        //src: 'https://static.elfsight.com/platform/platform.js'
+      }]
+    },
+  },
+
   modules: [
     '@vueuse/nuxt',
     'vuetify-nuxt-module',

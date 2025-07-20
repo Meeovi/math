@@ -106,10 +106,10 @@
       
       <v-row dense class="mt-1">
         <v-col cols="3">
-          <v-btn block @click="bitShift('<<')" :disabled="!isOperationEnabled('A-F')"><<</v-btn>
+          <v-btn block @click="bitShift('<<')" :disabled="!isOperationEnabled('A-F')">&lt;&lt;</v-btn>
         </v-col>
         <v-col cols="3">
-          <v-btn block @click="bitShift('>>')" :disabled="!isOperationEnabled('A-F')">>></v-btn>
+          <v-btn block @click="bitShift('>>')" :disabled="!isOperationEnabled('A-F')">&gt;&gt;</v-btn>
         </v-col>
         <v-col cols="3">
           <v-btn block @click="clearEntry">CE</v-btn>
